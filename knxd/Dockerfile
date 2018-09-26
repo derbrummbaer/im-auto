@@ -1,8 +1,9 @@
  # knxd
 # 
 #
-FROM debian:jessie
-MAINTAINER Sven Berger sven@berger-lembeck.debhelper
+FROM debian:stable-slim
+
+MAINTAINER Sven Berger
 
 
 RUN  apt-get update \
@@ -11,27 +12,22 @@ RUN  apt-get update \
   && apt-get install build-essential wget cdbs debhelper libusb-1.0-0-dev libsystemd-daemon-dev autotools-dev autoconf automake libtool pkg-config dh-systemd libev-dev cmake -qy
 
 
-RUN git clone https://github.com/knxd/knxd.git
+RUN git clone -b stable https://github.com/knxd/knxd.git
 
-ENV KNXD_CHANGESET d65322446039f15610dc5058c4ea80a2c4699987
-#ENV KNXD_VERSION v0.12.6
-ENV KNXD_VERSION stable
-
-# PATCH: remove tests as they don't run well on travis
 RUN cd knxd \
- && git checkout ${KNXD_VERSION} \
- && echo "#!/bin/bash" > tools/test.sh \
- && dpkg-buildpackage -b -uc
-
-RUN dpkg -i knxd_*.deb knxd-tools_*.deb
+     && ./bootstrap.sh \
+     && ./configure --disable-systemd --enable-tpuart --enable-usb --enable-eibnetipserver --enable-eibnetip --enable-eibnetserver --enable-eibnetiptunnel \
+     && mkdir -p src/include/sys && ln -s /usr/lib/bcc/include/sys/cdefs.h src/include/sys \
+     && make \
+     && make install
 
 RUN apt-get remove build-essential debhelper autotools-dev autoconf automake cmake pkg-config -qy \
   && apt-get autoremove -qy \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-EXPOSE 6720
+EXPOSE 3672 6720
 
-COPY entrypoint.sh /entrypoint.sh
+COPY scripte/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["knxd"]
