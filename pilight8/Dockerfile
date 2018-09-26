@@ -34,7 +34,7 @@ RUN echo APT::Install-Suggests "0"; >> /etc/apt/apt.conf
 
 # Repository für Pilight
 RUN apt-get update && \
-	apt-get install wget -qy
+	apt-get install wget gnupg -qy
 
 RUN echo "deb http://apt.pilight.org/ stable main" > /etc/apt/sources.list.d/pilight.list && \
 	wget -O - https://apt.pilight.org/pilight.key | apt-key add -
