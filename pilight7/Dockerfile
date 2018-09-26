@@ -7,7 +7,7 @@
 # Argument Variables from YAML File
 ############################################################
 
-FROM debian/stable-slim
+FROM debian:stable-slim
 
 # File Author / Maintainer
 MAINTAINER Sven Berger
