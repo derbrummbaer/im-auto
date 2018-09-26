@@ -26,6 +26,8 @@ RUN apt-get remove build-essential debhelper autotools-dev autoconf automake cma
   && apt-get autoremove -qy \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN rm -R /root/knxd
+
 EXPOSE 3672 6720
 
 COPY scripte/entrypoint.sh /entrypoint.sh
