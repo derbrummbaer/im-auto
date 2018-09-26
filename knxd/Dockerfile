@@ -9,7 +9,7 @@ MAINTAINER Sven Berger
 RUN apt-get update
 RUN apt-get dist-upgrade -qy
 RUN apt-get install -qy git-core init-system-helpers
-RUN apt-get install -qy build-essential wget cdbs debhelper libusb-1.0-0-dev libsystemd-daemon-dev 
+RUN apt-get install -qy build-essential wget cdbs debhelper libusb-1.0-0-dev libsystemd-dev 
 RUN apt-get install -qy autotools-dev autoconf automake libtool pkg-config dh-systemd libev-dev cmake 
 
 
