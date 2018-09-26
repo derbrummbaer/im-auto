@@ -6,10 +6,11 @@ FROM debian:stable-slim
 MAINTAINER Sven Berger
 
 
-RUN  apt-get update \
-  && apt-get dist-upgrade -qy \
-  && apt-get install git-core init-system-helpers -qy \
-  && apt-get install build-essential wget cdbs debhelper libusb-1.0-0-dev libsystemd-daemon-dev autotools-dev autoconf automake libtool pkg-config dh-systemd libev-dev cmake -qy
+RUN apt-get update
+RUN apt-get dist-upgrade -qy
+RUN apt-get install -qy git-core init-system-helpers
+RUN apt-get install -qy build-essential wget cdbs debhelper libusb-1.0-0-dev libsystemd-daemon-dev 
+RUN apt-get install -qy autotools-dev autoconf automake libtool pkg-config dh-systemd libev-dev cmake 
 
 
 RUN git clone -b stable https://github.com/knxd/knxd.git
@@ -31,32 +32,3 @@ COPY scripte/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["knxd"]
-
-
-
-
-
-
-
-
-
-
-
-
-
-# RUN apt-get -y update
-# RUN apt-get -y install git-core build-essential debhelper autotools-dev autoconf automake libtool \
-#                        libusb-1.0-0-dev  pkg-config base-files  base-files libev-dev  \
-#                        init-system-helpers dh-systemd libsystemd-dev  libsystemd-daemon-dev
-
-# # now build+install knxd
-
-# RUN git clone https://github.com/knxd/knxd.git && cd knxd && git checkout tags/v0.12.6 && \
-#     dpkg-buildpackage -b -uc && cd .. && dpkg -i knxd_*.deb knxd-tools_*.deb
-
-
-# #EXPOSE  4720 6720 3671/udp
-# ##### NOTE AND README ######
-# #start this container with --net=host instead of binding ports
-
-# CMD ["knxd", "-e 0.0.1", "-E 0.0.2:8", "-DTRS", "-c", "-i", "--send-delay=70", "-B single", "-b ipt:192.168.177.24"]
