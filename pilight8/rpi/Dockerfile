@@ -7,10 +7,10 @@
 # Argument Variables from YAML File
 ############################################################
 
-FROM resin/rpi-raspbian:stretch
+FROM balenalib/rpi-raspbian:stretch
 
 # File Author / Maintainer
-# MAINTAINER Sven Berger
+MAINTAINER Sven Berger
 
 ############################################################
 ############################################################
