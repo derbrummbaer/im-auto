@@ -7,7 +7,7 @@
 # Argument Variables from YAML File
 ############################################################
 
-FROM resin/rpi-raspbian:stretch
+FROM derbrummbaer/rpi-raspbian:jessie
 
 # File Author / Maintainer
 MAINTAINER Sven Berger
