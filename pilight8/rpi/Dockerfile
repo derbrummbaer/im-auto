@@ -7,7 +7,7 @@
 # Argument Variables from YAML File
 ############################################################
 
-FROM derbrummbaer/rpi-raspian:jessie
+FROM derbrummbaer/rpi-raspbian:jessie
 
 # File Author / Maintainer
 MAINTAINER Sven Berger
@@ -18,8 +18,7 @@ MAINTAINER Sven Berger
 ############################################################
 ############################################################
 
-#COPY bin/ /usr/bin/
-# RUN [ "cross-build-start" ]
+RUN [ "cross-build-start" ]
 
 ############################################################
 # don't ask for stupid things
@@ -100,7 +99,7 @@ EXPOSE 5051 5052
 ############################################################
 ############################################################
 
-# RUN [ "cross-build-end" ]
+RUN [ "cross-build-end" ]
 
 ############################################################
 # Container Start

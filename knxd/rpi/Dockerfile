@@ -1,14 +1,13 @@
 ############################################################
 # Dockerfile zum erstellen eines Dockercontainers für
-# homegear
+# knxd
 ############################################################
 
 ############################################################
 # Argument Variables from YAML File
 ############################################################
 
-#FROM resin/rpi-raspbian:stretch
-FROM derbrummbaer/rpi-raspbian:latest
+FROM derbrummbaer/rpi-raspbian:buster
 
 # File Author / Maintainer
 MAINTAINER Sven Berger
@@ -19,7 +18,6 @@ MAINTAINER Sven Berger
 ############################################################
 ############################################################
 
-#COPY bin/ /usr/bin/
 RUN [ "cross-build-start" ]
 
 ############################################################
@@ -67,7 +65,7 @@ RUN cd knxd \
 # Remove Apt Data
 ############################################################
 
-RUN apt-get remove build-essential debhelper autotools-dev autoconf automake cmake pkg-config git-core init-system-helpers -qy \
+RUN apt-get remove build-essential debhelper autotools-dev autoconf automake cmake pkg-config git-core -qy \
   && apt-get autoremove -qy \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

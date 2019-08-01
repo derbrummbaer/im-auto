@@ -18,7 +18,6 @@ MAINTAINER Sven Berger
 ############################################################
 ############################################################
 
-#COPY bin/ /usr/bin/
 RUN [ "cross-build-start" ]
 
 ############################################################
@@ -50,16 +49,19 @@ RUN apt-get update && \
 ############################################################
 
 
-RUN echo 'deb https://apt.homegear.eu/Raspbian/ stretch/' >> /etc/apt/sources.list.d/homegear.list && \
+RUN echo 'deb https://apt.homegear.eu/Raspbian/ jessie/' >> /etc/apt/sources.list.d/homegear.list && \
     wget -O - https://apt.homegear.eu/Release.key | apt-key add -
     
 RUN apt-get update && \
     apt-get dist-upgrade -qy && \
-    apt-get install libzip4 libavahi-client3 libavahi-client-dev insserv -qy
-
+    apt-get install -qy \
+    libavahi-client3 \
+    libavahi-client-dev \
+    insserv
+#   libzip4 \
 RUN apt-get update && \
     apt-get dist-upgrade -qy && \
-    apt-get install \
+    apt-get install -qy \
 	homegear \
     homegear-management \
     homegear-webssh \
@@ -69,20 +71,21 @@ RUN apt-get update && \
     homegear-homematicbidcos \
     homegear-homematicwired \
     homegear-max \
-    homegear-influxdb \
-    homegear-insteon \
-    homegear-philipshue \
-    homegear-sonos \
     homegear-kodi \
-    homegear-ipcam \
-    homegear-beckhoff \
-    homegear-knx \
-    homegear-enocean \
     homegear-intertechno \
-    homegear-mbus \
-    homegear-ccu2 \
-    homegear-zwave \
-	-qy
+    homegear-knx
+    
+    # homegear-influxdb \
+    # homegear-insteon \
+    # homegear-philipshue \
+    # homegear-sonos \
+    # homegear-ipcam \
+    # homegear-beckhoff \
+    # homegear-enocean \
+    # homegear-mbus \
+    # homegear-ccu2 \
+    # homegear-zwave \
+
 
 
 
